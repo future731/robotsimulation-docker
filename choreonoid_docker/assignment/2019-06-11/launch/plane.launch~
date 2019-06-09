@@ -1,0 +1,12 @@
+<launch>
+ <node pkg="nodelet" type="nodelet" name="multi_plane_estimate"
+        args="standalone jsk_pcl/OrganizedMultiPlaneSegmentation"
+        clear_params="false">
+    <remap from="~input" to="input_relay/output"/>
+    <rosparam>
+      max_curvature: 0.01
+      estimate_normal: true
+      min_size: 100
+    </rosparam>
+  </node>
+</launch>
