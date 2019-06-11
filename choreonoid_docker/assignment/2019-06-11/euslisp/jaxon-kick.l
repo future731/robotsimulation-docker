@@ -7,30 +7,33 @@
 
 (defun look-down ()
   (sync-with-ri)
-  (send *robot* :look-at-target #f(1000 0 0))
+  (send *robot* :look-at-target #f(1.5 0 0))
   (send *ri* :angle-vector (send *robot* :angle-vector) 1000))
 
 (defun sync-with-ri ()
   (print (send *robot* :angle-vector (send *ri* :state :potentio-vector))))
 
+; (send *robot* :legs :move-end-pos #f(0 0 100))
 (defun squat (squat-height)
-  (send *robot* :legs :move-end-pos (float-vector 0 0 squat-height))
-  (send *ri* :angle-vector (send *robot* :angle-vector) 1000))
+  (let (l r)
+      (sync-with-ri)
+      (setq l (copy-object (send *robot* :lleg :end-coords)))
+      (setq r (copy-object (send *robot* :rleg :end-coords)))
+      (send l :translate (float-vector 0 0 squat-height))
+      (send r :translate (float-vector 0 0 squat-height))
 
-(defun larm-trans-ik (move-absolute-coords)
-  (let (l)
-    (sync-with-ri)
-    (send *robot* :larm :inverse-kinematics move-absolute-coords
-      :translation-axis t
-      :rotation-axis t
-      :revert-if-fail nil
-      :debug-view nil)
-    (send *ri* :angle-vector (send *robot* :angle-vector) 1000)
-    ))
+      (send *robot* :lleg :inverse-kinematics l
+        :translation-axis t
+        :rotation-axis t
+        :revert-if-fail nil
+        :debug-view nil)
 
-(defun larm-trans-ik-with-abs-pos (abs-pos-from-base)
-  (larm-trans-ik (progn (setq l (copy-object (send *robot* :larm :end-coords))) (send l :locate abs-pos-from-base :world)))
-  )
+      (send *robot* :rleg :inverse-kinematics r
+        :translation-axis t
+        :rotation-axis t
+        :revert-if-fail nil
+        :debug-view nil)
+      (send *ri* :angle-vector (send *robot* :angle-vector) 1000)))
 
 (defun larm-trans (move-relative-3axis)
   (let (l)

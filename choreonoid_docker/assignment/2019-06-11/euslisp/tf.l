@@ -1,0 +1,8 @@
+(ros::roseus "tf_getter")
+(setq *tr* (instance ros::transform-listener :init))
+(send *tr* :wait-for-transform "gyrometer" "choreonoid_origin" (ros::time-now) 10)
+;; (send *tr* :set-transform (instance ros::tf-cascaded-coords :init :pos #f(1 2 3) :frame-id "this_frame" :child-frame-id "child"))
+(while (ros::ok)
+(print (send *tr* :lookup-transform "gyrometer" "choreonoid_origin" (ros::time 0)))
+(ros::sleep 1)
+       )
