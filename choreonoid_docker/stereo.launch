@@ -1,0 +1,13 @@
+<launch>
+    <group ns="multisense_local">
+        <node name="disparity" pkg="nodelet" type="nodelet"
+            args="standalone stereo_image_proc/disparity">
+            <param name="approximate_sync" value="true" />
+        </node>
+        <node name="point_cloud2" pkg="nodelet" type="nodelet"
+            args="standalone stereo_image_proc/point_cloud2">
+            <param name="approximate_sync" value="true" />
+            <param name="queue_size" value="100" />
+        </node>
+    </group>
+</launch>
