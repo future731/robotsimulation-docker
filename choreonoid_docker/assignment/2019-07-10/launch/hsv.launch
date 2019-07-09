@@ -1,2 +1,46 @@
 <launch>
+    <group ns="white_box">
+        <include file="$(find jsk_pcl_ros)/launch/hsi_color_filter.launch">
+            <arg name="INPUT" value="/multisense_local/organized_image_points2" />
+            <arg name="h_max" value="9" />
+            <arg name="h_min" value="-3" />
+            <arg name="s_max" value="13" />
+            <arg name="s_min" value="0" />
+            <arg name="i_max" value="188" />
+            <arg name="i_min" value="161" />
+        </include>
+    </group>
+    <group ns="red_box">
+        <include file="$(find jsk_pcl_ros)/launch/hsi_color_filter.launch">
+            <arg name="INPUT" value="/multisense_local/organized_image_points2" />
+            <arg name="h_max" value="18" />
+            <arg name="h_min" value="-64" />
+            <arg name="s_max" value="184" />
+            <arg name="s_min" value="50" />
+            <arg name="i_max" value="255" />
+            <arg name="i_min" value="0" />
+        </include>
+    </group>
+    <group ns="blue_box">
+        <include file="$(find jsk_pcl_ros)/launch/hsi_color_filter.launch">
+            <arg name="INPUT" value="/multisense_local/organized_image_points2" />
+            <arg name="h_max" value="-22" />
+            <arg name="h_min" value="-111" />
+            <arg name="s_max" value="170" />
+            <arg name="s_min" value="51" />
+            <arg name="i_max" value="255" />
+            <arg name="i_min" value="0" />
+        </include>
+    </group>
+    <group ns="green_box">
+        <include file="$(find jsk_pcl_ros)/launch/hsi_color_filter.launch">
+            <arg name="INPUT" value="/multisense_local/organized_image_points2" />
+            <arg name="h_max" value="127" />
+            <arg name="h_min" value="56" />
+            <arg name="s_max" value="181" />
+            <arg name="s_min" value="96" />
+            <arg name="i_max" value="174" />
+            <arg name="i_min" value="91" />
+        </include>
+    </group>
 </launch>
