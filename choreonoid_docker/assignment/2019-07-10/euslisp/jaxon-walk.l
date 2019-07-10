@@ -93,6 +93,7 @@
   (ik-with-offset ypr-float-vector pos-offset limb)
   (send *ri* :wait-interpolation)
   (ik-with-offset ypr-float-vector pos-offset2 limb)
+  (send *ri* :wait-interpolation)
   )
 
 (defun get-white-point ()
@@ -169,6 +170,12 @@
   (ik (float-vector 0 pi/2 0) #f(100 0 300) #f(100 0 0) *white-point* ':larm)
   (ik (float-vector 0 0 0) #f(-100 0 50) #f(0 0 50) *red-point* ':rarm)
   (send *ri* :start-grasp)
+  (send *ri* :go-pos 0 2 0)
+  (send *ri* :go-pos 3.7 0 0)
+  (send *ri* :go-pos 0 1.2 0)
+  (send *ri* :stop-grasp :larm)
+  (send *ri* :go-pos 0.1 0.5 0)
+  (send *ri* :stop-grasp :rarm)
 
   ;; (larm-trans #f(0 100 0))
   ;; (larm-trans #f(0 0 100))
